@@ -5,10 +5,10 @@ from cleanup import rm_dir
 
 
 def main():
-    # pdf_to_images('../maturity/', './tmp_images/')
-    # extract_question('./tmp_images/', './q/')
+    pdf_to_images('../maturity/', './tmp_images/')
+    extract_question('./tmp_images/', './q/')
     create_transparent_background('./q/', '../questions/')
-    # rm_dir(['./tmp_images/', './tmp_questions/', './__pycache__/']) 
+    rm_dir(['./tmp_images/', './tmp_questions/', './__pycache__/']) 
 
 
 if __name__ == "__main__":
