@@ -9,6 +9,7 @@ def pdf_to_images(PATH, SAVE_PATH):
     # Path(SAVE_PATH).mkdir(parents=True, exist_ok=True)
     for file in get_files(PATH):
         images = convert_from_path(f'{PATH}{file}')
+        print(file)
         for i in range(1, len(images) - 2):
             # save pages as images with name `<year>-#.jpg`
             images[i].save(
