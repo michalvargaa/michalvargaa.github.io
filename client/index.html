@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>MATurita</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://requirejs.org/docs/release/2.3.5/minified/require.js"></script>
+  </head>
+  <body class="bg-[url('./background.png')] bg-cover h-screen">
+    <section class="w-1/2 m-5">
+      <h1 id="question_name" class="font-bold w-full text-2xl ml-4"></h1>
+      <img src="" id="question" alt="question" class="w-full max-h-[65vh]" />
+    </section>
+    <section>
+      <!-- <div class="buttons"> -->
+      <button onclick="getAnswer()" class="button" id="answer">Odpoveď</button>
+      <!-- <button onclick="next()" class="button" id="next">Ďalší -></button> -->
+      <!-- </div> -->
+    </section>
+
+    <footer class="absolute bottom-0 w-screen">
+      <p class="text-center mb-4 select-none">
+        Made by <strong>Michal Varga </strong>
+      </p>
+    </footer>
+    <script src="script.js"></script>
+  </body>
+</html>
