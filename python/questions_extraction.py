@@ -37,7 +37,7 @@ def extract_question(PATH, SAVE_PATH):
         for i in range(1, len(arr) - 1):
             if abs(arr[j] - arr[i]) < 10:
                 continue
-            cropped_image = img[(arr[j]+10):arr[i], 220:1520]
+            cropped_image = img[(arr[j]+10):arr[i], 220:1500]
             cv2.imwrite(
                 f'{SAVE_PATH}{file[:4]}-{question_n}.png', cropped_image)
             j = i
