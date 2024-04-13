@@ -8,22 +8,29 @@
     <script src="https://requirejs.org/docs/release/2.3.5/minified/require.js"></script>
   </head>
   <body class="bg-[url('./background.png')] bg-cover h-screen">
-    <section class="w-1/2 m-5">
-      <h1 id="question_name" class="font-bold w-full text-2xl ml-4"></h1>
-      <img src="" id="question" alt="question" class="w-full max-h-[65vh]" />
+
+    <section class="w-1/2 m-5 mt-6">
+      <div class="flex w-full items-center justify-center gap-2">
+        <h1 id="question_number" class="font-light text-3xl tracking-wide">
+        
+        </h1>
+        <p class="text-gray-600 text-xl" id="question_year"></p>
+      </div>
+      <img src="../questions/2016-27.png" id="question" alt="question" class="w-full max-h-[fulla]" />
     </section>
     <section>
       <!-- <div class="buttons"> -->
       <button onclick="getAnswer()" class="button" id="answer">Odpoveď</button>
       <!-- <button onclick="next()" class="button" id="next">Ďalší -></button> -->
       <!-- </div> -->
-    </section>
+      </section>
+    
 
     <footer class="absolute bottom-0 w-screen">
       <p class="text-center mb-4 select-none">
         Made by <strong>Michal Varga </strong>
       </p>
     </footer>
-    <script src="script.js"></script>
+    <script src="question.js"></script>
   </body>
 </html>

@@ -1,4 +1,5 @@
 window.onload = chooseQuestion;
+
 const answers = [
   "15",
   "336",
@@ -366,20 +367,26 @@ let year;
 let question;
 function chooseQuestion() {
   const years = [
-    2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2023, 2024,
+    2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2023, 2024,
   ];
 
-  let randomYear = Math.floor(Math.random() * 12);
+  let randomYear = Math.floor(Math.random() * years.length);
   let randomQuestion = Math.floor(Math.random() * 30) + 1;
   year = years[randomYear];
   question = randomQuestion;
+
+  let questionNumber = randomYear*30 + randomQuestion;
 
   document.getElementById(
     "question"
   ).src = `../questions/${years[randomYear]}-${randomQuestion}.png`;
   document.getElementById(
-    "question_name"
-  ).textContent = `${randomQuestion}/${years[randomYear]}`;
+    "question_number"
+  ).textContent = `PRÍKLAD ${questionNumber}`;
+  
+  document.getElementById(
+    "question_year"
+  ).textContent = `(${randomQuestion}/${years[randomYear]})`;
 }
 
 function getAnswer() {
