@@ -365,17 +365,39 @@ const answers = [
 
 let year;
 let question;
+let prevAns = 'A';
+let prevCorAns = 'A';
+const years = [
+  2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2023, 2024,
+];
+
 function chooseQuestion() {
-  const years = [
-    2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2023, 2024,
-  ];
+  //cleanup
+  for(let n = 65; n <= 69; n++) {
+    document.getElementById(String.fromCharCode(n)).disabled = false;
+  }
+  document.getElementById(prevAns).style.backgroundColor = '';
+  document.getElementById(prevCorAns).style.backgroundColor = '';
+  document.getElementById('answerInput').value = '';
+  document.getElementById('submitAnswerInput').textContent = 'ODPOVEĎ';
+  document.getElementById('submitAnswerInput').style.backgroundColor = '';
+  document.getElementById('submitAnswerInput').disabled = false;
+  document.getElementById('answerInput').disabled = false;
 
   let randomYear = Math.floor(Math.random() * years.length);
   let randomQuestion = Math.floor(Math.random() * 30) + 1;
   year = years[randomYear];
   question = randomQuestion;
 
-  let questionNumber = randomYear*30 + randomQuestion;
+  let questionNumber = randomYear * 30 + randomQuestion;
+
+  if (randomQuestion <= 20) {
+    document.getElementById('abcde').style.display = 'none';
+    document.getElementById("type").style.display = "flex";
+  } else {
+    document.getElementById("abcde").style.display = "flex";
+    document.getElementById('type').style.display = 'none';
+  }
 
   document.getElementById(
     "question"
@@ -383,14 +405,46 @@ function chooseQuestion() {
   document.getElementById(
     "question_number"
   ).textContent = `PRÍKLAD ${questionNumber}`;
-  
+
   document.getElementById(
     "question_year"
   ).textContent = `(${randomQuestion}/${years[randomYear]})`;
 }
 
-function getAnswer() {
-    console.log((year-2011)*30 + question)
-  document.getElementById("answer").innerHTML = answers[(year-2011)*30 + question - 1];
+function checkAnswer(ans='written') {
+  let corAns = answers[30 + years.indexOf(year)* 30 + question - 1];
+  if (ans === 'written') {
+    let val = document.getElementById('answerInput').value;
+    document.getElementById('answerInput').style.fontWeight = 'bold';
+    document.getElementById('submitAnswerInput').disabled = true;
+    document.getElementById('answerInput').disabled = true;
+    if (corAns == val) {
+      document.getElementById('answerInput').style.color = 'green';
+      document.getElementById('submitAnswerInput').style.backgroundColor = 'green';
+    } else {
+      document.getElementById('answerInput').style.color = 'red'
+      document.getElementById('submitAnswerInput').style.backgroundColor = 'red';
+      document.getElementById('submitAnswerInput').textContent = corAns;
+
+    }
+    console.log(val)
+  } else {
+    prevCorAns = corAns;
+    prevAns = ans;
+    if (ans != corAns) document.getElementById(ans).style.backgroundColor = "red";
+    document.getElementById(corAns).style.backgroundColor = "green";
+  
+    for(let n = 65; n <= 69; n++) {
+      document.getElementById(String.fromCharCode(n)).disabled = true;
+    }
+  }
 
 }
+
+
+function isNumberKey(event){
+  var charCode = (event.which) ? event.which : event.keyCode
+  if (charCode > 31 && (charCode < 48 || charCode > 57) && charCode != 44)
+      return false;
+  return true;
+  }

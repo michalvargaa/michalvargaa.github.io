@@ -7,24 +7,89 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://requirejs.org/docs/release/2.3.5/minified/require.js"></script>
   </head>
-  <body class="bg-[url('./background.png')] bg-cover h-screen">
-
-    <section class="w-1/2 m-5 mt-6">
-      <div class="flex w-full items-center justify-center gap-2">
-        <h1 id="question_number" class="font-light text-3xl tracking-wide">
-        
-        </h1>
-        <p class="text-gray-600 text-xl" id="question_year"></p>
-      </div>
-      <img src="../questions/2016-27.png" id="question" alt="question" class="w-full max-h-[fulla]" />
-    </section>
-    <section>
-      <!-- <div class="buttons"> -->
-      <button onclick="getAnswer()" class="button" id="answer">Odpoveď</button>
-      <!-- <button onclick="next()" class="button" id="next">Ďalší -></button> -->
-      <!-- </div> -->
+  <body class="bg-[url('./background.png')] bg-cover h-screen select-none">
+    <main class="w-full p-5 pt-3 h-full relative flex justify-between">
+      <section  class="w-1/2">
+        <section>
+          <div class="flex w-full items-center justify-center gap-2">
+            <h1
+              id="question_number"
+              class="font-light text-3xl tracking-wide"
+            ></h1>
+            <p class="text-gray-600 text-2xl" id="question_year"></p>
+          </div>
+          <img
+            src="../questions/2023-29.png"
+            id="question"
+            alt="question"
+            class="max-w-full max-h-[80vh]"
+          />
+        </section>
+        <section>
+          <!-- type 0 -->
+          <div id="type" class="pl-10 flex gap-5 absolute bottom-20 hidden" >
+            <input
+              type="text"
+              id="answerInput"
+              onkeypress="return isNumberKey(event)"
+              class="border-b-4 border-gray-800 p-5 pb-0 border-bottom text-gray-900 text-lg outline-none bg-transparent"
+              required
+            />
+            <button
+              type="submit"
+              id="submitAnswerInput"
+              class="bg-gray-800 text-gray-200 p-4 font-bold text-lg hover:bg-gray-600 hover:text-gray-100 transition-all"
+              onclick="checkAnswer()"
+            >
+              ODPOVEĎ
+            </button>
+          </div>
+  
+          <!-- type 1 -->
+          <div id="abcde" class="pl-10 flex gap-5 absolute bottom-20 hidden">
+            <button
+              id="A"
+              class="bg-gray-800 text-gray-200 p-5 rounded-lg font-bold text-xl hover:bg-gray-600 hover:text-gray-100 transition-all"
+              onclick="checkAnswer('A')"
+            >
+              A
+            </button>
+            <button
+              id="B"
+              class="bg-gray-800 text-gray-200 p-5 rounded-lg font-bold text-xl hover:bg-gray-600 hover:text-gray-100 transition-all"
+              onclick="checkAnswer('B')"
+            >
+              B
+            </button>
+            <button
+              id="C"
+              class="bg-gray-800 text-gray-200 p-5 rounded-lg font-bold text-xl hover:bg-gray-600 hover:text-gray-100 transition-all"
+              onclick="checkAnswer('C')"
+            >
+              C
+            </button>
+            <button
+              id="D"
+              class="bg-gray-800 text-gray-200 p-5 rounded-lg font-bold text-xl hover:bg-gray-600 hover:text-gray-100 transition-all"
+              onclick="checkAnswer('D')"
+            >
+              D
+            </button>
+            <button
+              id="E"
+              class="bg-gray-800 text-gray-200 p-5 rounded-lg font-bold text-xl hover:bg-gray-600 hover:text-gray-100 transition-all"
+              onclick="checkAnswer('E')"
+            >
+              E
+            </button>
+          </div>
+        </section>
       </section>
-    
+ 
+      <section class="pr-5">
+        <button class="bg-gray-800 text-gray-200 px-5 py-2 font-bold text-lg hover:bg-gray-600 hover:text-gray-100 transition-all" onclick="chooseQuestion()">ĎALŠÍ</button>
+      </section>
+    </main>
 
     <footer class="absolute bottom-0 w-screen">
       <p class="text-center mb-4 select-none">
