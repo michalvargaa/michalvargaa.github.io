@@ -422,8 +422,8 @@ function goToQuestion() {
   else nextYear = Math.floor(nextYear);
   let nextNumber = val - 30 * nextYear;
 
-  year = years[curRandomYear];
-  question = curRandomQuestion;
+  year = years[nextYear];
+  question = nextNumber;
 
   showQuestion(val, nextYear, nextNumber);
 }
