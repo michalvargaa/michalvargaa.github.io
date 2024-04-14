@@ -9,17 +9,17 @@
   </head>
   <body class="bg-[url('./background.png')] bg-cover h-screen overflow-hidden">
     <header class="flex justify-center items-center gap-2 py-4">
-      <h1 id="question_number" class="text-3xl tracking-widest"></h1>
+      <h1 id="question_id" class="text-3xl tracking-widest"></h1>
       <p id="question_year" class="text-xl text-gray-600"></p>
     </header>
 
     <main class="select-none px-5 relative h-[90vh] w-auto">
       <section class="overflow-auto">
-        <img src="" alt="" id="question" class="max-w-[150%] max-h-[65vh]" />
+        <img src="" alt="" id="question_img" class="max-w-[150%] max-h-[65vh]" />
       </section>
 
       <section class="py-2 absolute bottom-[17vh] w-[90vw]">
-        <div id="type" class="flex justify-between w-full">
+        <div id="write" class="flex justify-between w-full hidden">
           <p
             id="corAnswer"
             class="absolute bottom-12 font-bold text-green-700 px-2 hidden"
@@ -96,7 +96,7 @@
               class="text-base outline-none bg-transparent border-b-2 w-1/4 p-2 text-center"
               placeholder="#"
             />
-            <button type="submit" id="submitFindInput">🔍</button>
+            <button type="submit" id="submitFindInput" onclick="goToQuestion()">🔍</button>
           </div>
         </div>
       </section>

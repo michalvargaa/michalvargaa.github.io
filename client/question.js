@@ -1,43 +1,27 @@
 window.onload = chooseQuestion;
 
+// question
+const questionIDEl = document.getElementById("question_id");
+const question_imgEl = document.getElementById("question_img");
+const question_yearEl = document.getElementById("question_year");
+// answering
+const abcdEl = document.getElementById("abcde");
+const writeEl = document.getElementById("write");
+const answerInputEl = document.getElementById("answerInput");
+const submitAnswerInputEl = document.getElementById("submitAnswerInput");
+const corAnswerEl = document.getElementById("corAnswer");
+// find
+const findInputEl = document.getElementById("findInput");
+const submitFindInput = document.getElementById("submitFindInput");
+
 const answers = [
-  "15",
-  "336",
-  "34",
-  "36",
-  "- 2011",
-  "90",
-  "- 40",
-  "36",
-  "4,24",
-  "348",
-  "700",
-  "0,11",
-  "6",
-  "35,26",
-  "5",
-  "294",
-  "242",
-  "2",
-  "10",
-  "3",
-  "B",
-  "A",
-  "C",
-  "A",
-  "E",
-  "C",
-  "D",
-  "E",
-  "C",
-  "D",
-  "- 5",
+  "-5",
   "31944",
   "3,5",
   "40",
   "3",
   "70",
-  "- 6,25",
+  "-6,25",
   "54,24",
   "15",
   "15,95",
@@ -67,7 +51,7 @@ const answers = [
   "13",
   "16,5",
   "117,28",
-  "4 000",
+  "4000",
   "8",
   "4",
   "2",
@@ -75,7 +59,7 @@ const answers = [
   "30",
   "15,63",
   "-8",
-  "3 840",
+  "3840",
   "7",
   "0",
   "123",
@@ -96,8 +80,8 @@ const answers = [
   "-7",
   "8",
   "-8",
-  "2 697,74 a 2 697,75",
-  "9 372",
+  "2697,74 a 2697,75",
+  "9372",
   "4",
   "35,26",
   "3",
@@ -128,7 +112,7 @@ const answers = [
   "9,27",
   "–5",
   "108",
-  "0,8 alebo 0,80",
+  "0,8",
   "102",
   "25",
   "17,43",
@@ -316,7 +300,7 @@ const answers = [
   "2,88",
   "122",
   "3,54",
-  "2 628",
+  "2628",
   "231",
   "1,37",
   "512",
@@ -349,7 +333,7 @@ const answers = [
   "5,93",
   "20",
   "1,45",
-  "-5 050",
+  "-5050",
   "12,36",
   "E",
   "D",
@@ -362,7 +346,6 @@ const answers = [
   "E",
   "B",
 ];
-
 let year;
 let question;
 let prevAns = "A";
@@ -371,68 +354,98 @@ const years = [
   2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2023, 2024,
 ];
 
-function chooseQuestion() {
-  console.log("AAA");
-  //cleanup
+function showQuestion(ID, year, number) {
+  reset();
+
+  if (number <= 20) {
+    abcdEl.style.display = "none";
+    writeEl.style.display = "flex";
+  } else {
+    abcdEl.style.display = "flex";
+    writeEl.style.display = "none";
+  }
+
+  question_imgEl.src = `../questions/${years[year]}-${number}.png`;
+  questionIDEl.textContent = `PRÍKLAD ${ID}`;
+  question_yearEl.textContent = `(${number}/${years[year]})`;
+}
+
+function reset() {
+  // reset A,B,C,D,E
   for (let n = 65; n <= 69; n++) {
     document.getElementById(String.fromCharCode(n)).disabled = false;
   }
+
   document.getElementById(prevAns).style.backgroundColor = "";
   document.getElementById(prevCorAns).style.backgroundColor = "";
-  document.getElementById("answerInput").value = "";
-  document.getElementById("answerInput").placeholder = "výsledok";
-  document.getElementById("submitAnswerInput").style.backgroundColor = "";
-  document.getElementById("submitAnswerInput").disabled = false;
-  document.getElementById("answerInput").disabled = false;
-  document.getElementById("corAnswer").textContent = "";
-  document.getElementById("corAnswer").style.display = "hidden";
 
-  let randomYear = Math.floor(Math.random() * years.length);
-  let randomQuestion = Math.floor(Math.random() * 30) + 1;
-  year = years[randomYear];
-  question = randomQuestion;
+  answerInputEl.value = "";
+  answerInputEl.placeholder = "výsledok";
+  answerInputEl.disabled = false;
+  answerInputEl.style.color = "black";
 
-  let questionNumber = randomYear * 30 + randomQuestion;
+  submitAnswerInputEl.style.backgroundColor = "";
+  submitAnswerInputEl.disabled = false;
 
-  if (randomQuestion <= 20) {
-    document.getElementById("abcde").style.display = "none";
-    document.getElementById("type").style.display = "flex";
-  } else {
-    document.getElementById("abcde").style.display = "flex";
-    document.getElementById("type").style.display = "none";
+  corAnswerEl.textContent = "";
+  corAnswerEl.display = "hidden";
+
+  findInputEl.placeholder = "#";
+  findInputEl.value = "";
+}
+
+function chooseQuestion() {
+  reset();
+
+  let curRandomYear = Math.floor(Math.random() * years.length);
+  let curRandomQuestion = Math.floor(Math.random() * 30) + 1;
+
+  year = years[curRandomYear];
+  question = curRandomQuestion;
+
+  let curID = years.indexOf(year) * 30 + question;
+
+
+  showQuestion(curID, curRandomYear, curRandomQuestion);
+
+}
+
+function goToQuestion() {
+  let val = findInputEl.value;
+  if (!val || val <= 0 || val > 330) {
+    findInputEl.value = "";
+    findInputEl.placeholder = "X";
+    return;
   }
 
-  document.getElementById(
-    "question"
-  ).src = `../questions/${years[randomYear]}-${randomQuestion}.png`;
-  document.getElementById(
-    "question_number"
-  ).textContent = `PRÍKLAD ${questionNumber}`;
+  let nextYear = val / 30;
+  if (Number.isInteger(nextYear)) nextYear = Math.floor(nextYear) - 1;
+  else nextYear = Math.floor(nextYear);
+  let nextNumber = val - 30 * nextYear;
 
-  document.getElementById(
-    "question_year"
-  ).textContent = `(${randomQuestion}/${years[randomYear]})`;
+  showQuestion(val, nextYear, nextNumber);
 }
 
 function checkAnswer(ans = "written") {
-  let corAns = answers[30 + years.indexOf(year) * 30 + question - 1];
+  let corAns = answers[years.indexOf(year) * 30 + question - 1];
   if (ans === "written") {
-    let val = document.getElementById("answerInput").value.trim();
-    console.log(corAns);
-    document.getElementById("submitAnswerInput").disabled = true;
-    document.getElementById("answerInput").disabled = true;
+    // let val = Number(answerInputEl.value.trim());
+    let val = answerInputEl.value.trim();
+
+    console.log(corAns, val, answers[years.indexOf(year) * 30 + question - 1], years.indexOf(year) * 30 + question - 1)
+
+
+    submitAnswerInputEl.disabled = true;
+    answerInputEl.disabled = true;
     if (corAns === val) {
-      document.getElementById("answerInput").style.color = "green";
-      document.getElementById("submitAnswerInput").style.backgroundColor =
-        "green";
+      answerInputEl.style.color = "green";
+      submitAnswerInputEl.style.backgroundColor = "green";
     } else {
-      document.getElementById("answerInput").style.color = "red";
-      document.getElementById("submitAnswerInput").style.backgroundColor =
-        "red";
-      document.getElementById("corAnswer").textContent = corAns;
-      document.getElementById("corAnswer").style.display = "block";
+      answerInputEl.style.color = "red";
+      submitAnswerInputEl.style.backgroundColor = "red";
+      corAnswerEl.textContent = corAns;
+      corAnswerEl.style.display = "block";
     }
-    console.log(val);
   } else {
     prevCorAns = corAns;
     prevAns = ans;
@@ -448,7 +461,12 @@ function checkAnswer(ans = "written") {
 
 function isNumberKey(event) {
   var charCode = event.which ? event.which : event.keyCode;
-  if (charCode > 31 && (charCode < 48 || charCode > 57) && charCode != 44)
+  if (
+    charCode > 31 &&
+    (charCode < 48 || charCode > 57) &&
+    charCode != 44 &&
+    charCode != 45
+  )
     return false;
   return true;
 }
