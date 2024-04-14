@@ -410,12 +410,15 @@ function chooseQuestion() {
 }
 
 function goToQuestion() {
-  let val = findInputEl.value;
-  if (!val || val <= 0 || val > 330 || !Number.isInteger(val)) {
+  let val = Number(findInputEl.value);
+
+
+  if (val==="" || val <= 0 || val > 330 || !Number.isInteger(val)) {
     findInputEl.value = "";
     findInputEl.placeholder = "X";
     return;
   }
+  console.log("a");
 
   let nextYear = val / 30;
   if (Number.isInteger(nextYear)) nextYear = Math.floor(nextYear) - 1;
@@ -472,8 +475,9 @@ function isNumberKey(event) {
   if (
     charCode > 31 &&
     (charCode < 48 || charCode > 57) &&
-    charCode != 44 &&
-    charCode != 45
+    charCode != 44 && 
+    charCode != 45 &&
+    charCode != 46 
   )
     return false;
   return true;
