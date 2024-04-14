@@ -1,100 +1,145 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>MATurita</title>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MATurita</title>
+
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
-  <body class="bg-[url('./background.png')] bg-cover h-screen select-none">
-    <main class="w-full p-5 pt-3 h-full relative flex justify-between">
-      <section  class="w-1/2">
-        <section>
-          <div class="flex w-full items-center justify-center gap-2">
-            <h1
-              id="question_number"
-              class="font-light text-3xl tracking-wide"
-            ></h1>
-            <p class="text-gray-600 text-2xl" id="question_year"></p>
-          </div>
+  <style>
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    /* Firefox */
+    input[type="number"] {
+      -moz-appearance: textfield;
+    }
+  </style>
+  <body
+    class="bg-[url('./background.png')] bg-cover h-screen overflow-y-scroll"
+  >
+    <header class="flex justify-center items-center gap-2 py-4 h-[10vh]">
+      <h1 id="question_id" class="text-3xl tracking-widest"></h1>
+      <p id="question_year" class="text-xl text-gray-600"></p>
+    </header>
+
+    <main class="select-none px-5 relative h-[90vh] w-auto flex flex-col">
+      <section class="flex-1">
+        <div class="overflow-auto">
           <img
             src=""
-            id="question"
-            alt="question"
-            class="max-w-full max-h-[80vh]"
+            alt=""
+            id="question_img"
+            class="max-w-[150%] max-h-[65vh]"
           />
-        </section>
-        <section>
-          <!-- type 0 -->
-          <div id="type" class="pl-10 flex gap-5 absolute bottom-20 hidden" >
+        </div>
+      </section>
+
+      <section class="py-4">
+        <div id="write" class="flex justify-between w-full hidden relative">
+          <p
+            id="corAnswer"
+            class="font-bold text-green-700 px-2 hidden absolute bottom-10"
+          ></p>
+          <input
+            type="number"
+            id="answerInput"
+            lang="sk"
+            onkeypress="return isNumberKey(event)"
+            class="w-1/2 border-b-4 border-gray-800 p-3 pb-0 text-gray-900 text-base outline-none bg-transparent"
+            placeholder="výsledok"
+          />
+          <button
+            id="submitAnswerInput"
+            class="bg-gray-800 text-gray-200 py-3 px-2 font-bold text-base hover:bg-gray-600 hover:text-gray-100 transition-all"
+            onclick="checkAnswer()"
+          >
+            ODPOVEĎ
+          </button>
+        </div>
+
+        <div id="abcde" class="flex gap-3 justify-between hidden">
+          <button
+            id="A"
+            class="bg-gray-800 text-gray-200 p-3 px-5 rounded-lg font-bold text-xl hover:bg-gray-600 hover:text-gray-100 transition-all"
+            onclick="checkAnswer('A')"
+          >
+            A
+          </button>
+          <button
+            id="B"
+            class="bg-gray-800 text-gray-200 p-3 px-5 rounded-lg font-bold text-xl hover:bg-gray-600 hover:text-gray-100 transition-all"
+            onclick="checkAnswer('B')"
+          >
+            B
+          </button>
+          <button
+            id="C"
+            class="bg-gray-800 text-gray-200 p-3 px-5 rounded-lg font-bold text-xl hover:bg-gray-600 hover:text-gray-100 transition-all"
+            onclick="checkAnswer('C')"
+          >
+            C
+          </button>
+          <button
+            id="D"
+            class="bg-gray-800 text-gray-200 p-3 px-5 rounded-lg font-bold text-xl hover:bg-gray-600 hover:text-gray-100 transition-all"
+            onclick="checkAnswer('D')"
+          >
+            D
+          </button>
+          <button
+            id="E"
+            class="bg-gray-800 text-gray-200 p-3 px-5 rounded-lg font-bold text-xl hover:bg-gray-600 hover:text-gray-100 transition-all"
+            onclick="checkAnswer('E')"
+          >
+            E
+          </button>
+        </div>
+      </section>
+
+      <section class="py-4">
+        <div class="flex w-full justify-between w-full">
+          <button
+            class="bg-gray-800 text-gray-200 px-5 py-2 font-bold text-lg hover:bg-gray-600 hover:text-gray-100 transition-all"
+            onclick="chooseQuestion()"
+          >
+            ➜
+          </button>
+          <div class="flex justify-end gap-2 items-center">
             <input
-              type="text"
-              id="answerInput"
-              onkeypress="return isNumberKey(event)"
-              class="border-b-4 border-gray-800 p-5 pb-0 border-bottom text-gray-900 text-lg outline-none bg-transparent"
-              required
+              type="number"
+              id="findInput"
+              onkeypress="return isNumberKey(event);"
+              class="text-base outline-none bg-transparent border-b-2 w-1/4 p-2 text-center"
+              placeholder="#"
             />
             <button
-              type="submit"
-              id="submitAnswerInput"
-              class="bg-gray-800 text-gray-200 p-4 font-bold text-lg hover:bg-gray-600 hover:text-gray-100 transition-all"
-              onclick="checkAnswer()"
+              id="submitFindInput"
+              onclick="goToQuestion()"
+              class="w-5 h-5"
             >
-              ODPOVEĎ
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                <!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                <path
+                  d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"
+                />
+              </svg>
             </button>
           </div>
-  
-          <!-- type 1 -->
-          <div id="abcde" class="pl-10 flex gap-5 absolute bottom-20 hidden">
-            <button
-              id="A"
-              class="bg-gray-800 text-gray-200 p-5 rounded-lg font-bold text-xl hover:bg-gray-600 hover:text-gray-100 transition-all"
-              onclick="checkAnswer('A')"
-            >
-              A
-            </button>
-            <button
-              id="B"
-              class="bg-gray-800 text-gray-200 p-5 rounded-lg font-bold text-xl hover:bg-gray-600 hover:text-gray-100 transition-all"
-              onclick="checkAnswer('B')"
-            >
-              B
-            </button>
-            <button
-              id="C"
-              class="bg-gray-800 text-gray-200 p-5 rounded-lg font-bold text-xl hover:bg-gray-600 hover:text-gray-100 transition-all"
-              onclick="checkAnswer('C')"
-            >
-              C
-            </button>
-            <button
-              id="D"
-              class="bg-gray-800 text-gray-200 p-5 rounded-lg font-bold text-xl hover:bg-gray-600 hover:text-gray-100 transition-all"
-              onclick="checkAnswer('D')"
-            >
-              D
-            </button>
-            <button
-              id="E"
-              class="bg-gray-800 text-gray-200 p-5 rounded-lg font-bold text-xl hover:bg-gray-600 hover:text-gray-100 transition-all"
-              onclick="checkAnswer('E')"
-            >
-              E
-            </button>
-          </div>
-        </section>
+        </div>
       </section>
- 
-      <section class="pr-5">
-        <button class="bg-gray-800 text-gray-200 px-5 py-2 font-bold text-lg hover:bg-gray-600 hover:text-gray-100 transition-all" onclick="chooseQuestion()">ĎALŠÍ</button>
-      </section>
+
+      <footer class="flex justify-center items-center py-2">
+        <p class="text-center text-sm">
+          Made by <strong>Michal Varga </strong>
+        </p>
+      </footer>
     </main>
 
-    <footer class="absolute bottom-0 w-screen">
-      <p class="text-center mb-4 select-none">
-        Made by <strong>Michal Varga </strong>
-      </p>
-    </footer>
     <script src="question.js"></script>
   </body>
 </html>
