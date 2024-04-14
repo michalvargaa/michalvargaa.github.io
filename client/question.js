@@ -365,24 +365,27 @@ const answers = [
 
 let year;
 let question;
-let prevAns = 'A';
-let prevCorAns = 'A';
+let prevAns = "A";
+let prevCorAns = "A";
 const years = [
   2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2023, 2024,
 ];
 
 function chooseQuestion() {
+  console.log("AAA");
   //cleanup
-  for(let n = 65; n <= 69; n++) {
+  for (let n = 65; n <= 69; n++) {
     document.getElementById(String.fromCharCode(n)).disabled = false;
   }
-  document.getElementById(prevAns).style.backgroundColor = '';
-  document.getElementById(prevCorAns).style.backgroundColor = '';
-  document.getElementById('answerInput').value = '';
-  document.getElementById('submitAnswerInput').textContent = 'ODPOVEĎ';
-  document.getElementById('submitAnswerInput').style.backgroundColor = '';
-  document.getElementById('submitAnswerInput').disabled = false;
-  document.getElementById('answerInput').disabled = false;
+  document.getElementById(prevAns).style.backgroundColor = "";
+  document.getElementById(prevCorAns).style.backgroundColor = "";
+  document.getElementById("answerInput").value = "";
+  document.getElementById("answerInput").placeholder = "výsledok";
+  document.getElementById("submitAnswerInput").style.backgroundColor = "";
+  document.getElementById("submitAnswerInput").disabled = false;
+  document.getElementById("answerInput").disabled = false;
+  document.getElementById("corAnswer").textContent = "";
+  document.getElementById("corAnswer").style.display = "hidden";
 
   let randomYear = Math.floor(Math.random() * years.length);
   let randomQuestion = Math.floor(Math.random() * 30) + 1;
@@ -392,11 +395,11 @@ function chooseQuestion() {
   let questionNumber = randomYear * 30 + randomQuestion;
 
   if (randomQuestion <= 20) {
-    document.getElementById('abcde').style.display = 'none';
+    document.getElementById("abcde").style.display = "none";
     document.getElementById("type").style.display = "flex";
   } else {
     document.getElementById("abcde").style.display = "flex";
-    document.getElementById('type').style.display = 'none';
+    document.getElementById("type").style.display = "none";
   }
 
   document.getElementById(
@@ -411,40 +414,41 @@ function chooseQuestion() {
   ).textContent = `(${randomQuestion}/${years[randomYear]})`;
 }
 
-function checkAnswer(ans='written') {
-  let corAns = answers[30 + years.indexOf(year)* 30 + question - 1];
-  if (ans === 'written') {
-    let val = document.getElementById('answerInput').value;
-    document.getElementById('answerInput').style.fontWeight = 'bold';
-    document.getElementById('submitAnswerInput').disabled = true;
-    document.getElementById('answerInput').disabled = true;
-    if (corAns == val) {
-      document.getElementById('answerInput').style.color = 'green';
-      document.getElementById('submitAnswerInput').style.backgroundColor = 'green';
+function checkAnswer(ans = "written") {
+  let corAns = answers[30 + years.indexOf(year) * 30 + question - 1];
+  if (ans === "written") {
+    let val = document.getElementById("answerInput").value.trim();
+    console.log(corAns);
+    document.getElementById("submitAnswerInput").disabled = true;
+    document.getElementById("answerInput").disabled = true;
+    if (corAns === val) {
+      document.getElementById("answerInput").style.color = "green";
+      document.getElementById("submitAnswerInput").style.backgroundColor =
+        "green";
     } else {
-      document.getElementById('answerInput').style.color = 'red'
-      document.getElementById('submitAnswerInput').style.backgroundColor = 'red';
-      document.getElementById('submitAnswerInput').textContent = corAns;
-
+      document.getElementById("answerInput").style.color = "red";
+      document.getElementById("submitAnswerInput").style.backgroundColor =
+        "red";
+      document.getElementById("corAnswer").textContent = corAns;
+      document.getElementById("corAnswer").style.display = "block";
     }
-    console.log(val)
+    console.log(val);
   } else {
     prevCorAns = corAns;
     prevAns = ans;
-    if (ans != corAns) document.getElementById(ans).style.backgroundColor = "red";
+    if (ans != corAns)
+      document.getElementById(ans).style.backgroundColor = "red";
     document.getElementById(corAns).style.backgroundColor = "green";
-  
-    for(let n = 65; n <= 69; n++) {
+
+    for (let n = 65; n <= 69; n++) {
       document.getElementById(String.fromCharCode(n)).disabled = true;
     }
   }
-
 }
 
-
-function isNumberKey(event){
-  var charCode = (event.which) ? event.which : event.keyCode
+function isNumberKey(event) {
+  var charCode = event.which ? event.which : event.keyCode;
   if (charCode > 31 && (charCode < 48 || charCode > 57) && charCode != 44)
-      return false;
+    return false;
   return true;
-  }
+}
