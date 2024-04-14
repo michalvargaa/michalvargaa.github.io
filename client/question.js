@@ -411,7 +411,7 @@ function chooseQuestion() {
 
 function goToQuestion() {
   let val = findInputEl.value;
-  if (!val || val <= 0 || val > 330) {
+  if (!val || val <= 0 || val > 330 || !Number.isInteger(val)) {
     findInputEl.value = "";
     findInputEl.placeholder = "X";
     return;
