@@ -407,7 +407,6 @@ function chooseQuestion() {
 
 
   showQuestion(curID, curRandomYear, curRandomQuestion);
-
 }
 
 function goToQuestion() {
@@ -423,6 +422,9 @@ function goToQuestion() {
   else nextYear = Math.floor(nextYear);
   let nextNumber = val - 30 * nextYear;
 
+  year = years[curRandomYear];
+  question = curRandomQuestion;
+
   showQuestion(val, nextYear, nextNumber);
 }
 
@@ -432,8 +434,12 @@ function checkAnswer(ans = "written") {
     // let val = Number(answerInputEl.value.trim());
     let val = answerInputEl.value.trim();
 
-    console.log(corAns, val, answers[years.indexOf(year) * 30 + question - 1], years.indexOf(year) * 30 + question - 1)
-
+    console.log(
+      corAns,
+      val,
+      answers[years.indexOf(year) * 30 + question - 1],
+      years.indexOf(year) * 30 + question - 1
+    );
 
     submitAnswerInputEl.disabled = true;
     answerInputEl.disabled = true;
