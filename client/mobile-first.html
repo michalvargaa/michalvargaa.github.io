@@ -7,20 +7,24 @@
 
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
-  <body class="bg-[url('./background.png')] bg-cover h-screen overflow-y-auto">
+  <body
+    class="bg-[url('./background.png')] bg-cover h-screen overflow-y-scroll"
+  >
     <header class="flex justify-center items-center gap-2 py-4 h-[10vh]">
       <h1 id="question_id" class="text-3xl tracking-widest"></h1>
       <p id="question_year" class="text-xl text-gray-600"></p>
     </header>
 
     <main class="select-none px-5 relative h-[85vh] w-auto flex flex-col">
-      <section class="overflow-auto flex-1">
-        <img
-          src=""
-          alt=""
-          id="question_img"
-          class="max-w-[150%] max-h-[65vh]"
-        />
+      <section class="flex-1">
+        <div class="overflow-auto">
+          <img
+            src=""
+            alt=""
+            id="question_img"
+            class="max-w-[150%] max-h-[65vh]"
+          />
+        </div>
       </section>
 
       <section class="py-4">
@@ -101,7 +105,12 @@
               class="text-base outline-none bg-transparent border-b-2 w-1/4 p-2 text-center"
               placeholder="#"
             />
-            <button type="submit" id="submitFindInput" onclick="goToQuestion()" class="w-5 h-5">
+            <button
+              type="submit"
+              id="submitFindInput"
+              onclick="goToQuestion()"
+              class="w-5 h-5"
+            >
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
                 <!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
                 <path
@@ -114,10 +123,10 @@
       </section>
     </main>
 
-    <footer class="w-screen select-none h-[5vh] flex justify-center items-center">
-      <p class="text-center text-sm">
-        Made by <strong>Michal Varga </strong>
-      </p>
+    <footer
+      class="w-screen select-none flex justify-center items-center"
+    >
+      <p class="text-center text-sm">Made by <strong>Michal Varga </strong></p>
     </footer>
 
     <script src="question.js"></script>
