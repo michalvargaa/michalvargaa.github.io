@@ -7,6 +7,18 @@
 
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
+  <style>
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    /* Firefox */
+    input[type="number"] {
+      -moz-appearance: textfield;
+    }
+  </style>
   <body
     class="bg-[url('./background.png')] bg-cover h-screen overflow-y-scroll"
   >
@@ -34,8 +46,9 @@
             class="font-bold text-green-700 px-2 hidden absolute bottom-10"
           ></p>
           <input
-            type="text"
+            type="number"
             id="answerInput"
+            lang="sk"
             onkeypress="return isNumberKey(event)"
             class="w-1/2 border-b-4 border-gray-800 p-3 pb-0 text-gray-900 text-base outline-none bg-transparent"
             placeholder="výsledok"
@@ -95,11 +108,11 @@
             class="bg-gray-800 text-gray-200 px-5 py-2 font-bold text-lg hover:bg-gray-600 hover:text-gray-100 transition-all"
             onclick="chooseQuestion()"
           >
-            ĎALŠÍ
+            ➜
           </button>
           <div class="flex justify-end gap-2 items-center">
             <input
-              type="text"
+              type="number"
               id="findInput"
               onkeypress="return isNumberKey(event);"
               class="text-base outline-none bg-transparent border-b-2 w-1/4 p-2 text-center"
@@ -122,14 +135,12 @@
         </div>
       </section>
 
-      <footer
-      class="flex justify-center items-center py-2"
-    >
-      <p class="text-center text-sm">Made by <strong>Michal Varga </strong></p>
-    </footer>
+      <footer class="flex justify-center items-center py-2">
+        <p class="text-center text-sm">
+          Made by <strong>Michal Varga </strong>
+        </p>
+      </footer>
     </main>
-
-
 
     <script src="question.js"></script>
   </body>

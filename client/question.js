@@ -433,6 +433,8 @@ function checkAnswer(ans = "written") {
   if (ans === "written") {
     // let val = Number(answerInputEl.value.trim());
     let val = answerInputEl.value.trim();
+    if (val.includes("."))
+      val = val.replace(".", ",");
 
     console.log(
       corAns,
