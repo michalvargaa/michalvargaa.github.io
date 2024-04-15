@@ -355,6 +355,12 @@ const years = [
   2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2023, 2024,
 ];
 
+document.addEventListener("keydown", function(event) {
+  if (event.altKey && event.key === 'Enter') {
+    chooseQuestion();
+  }
+})
+
 answerInputEl.addEventListener("keypress", function (event) {
   if (event.key == "Enter") {
     event.preventDefault();
