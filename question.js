@@ -346,6 +346,7 @@ const answers = [
   "E",
   "B",
 ];
+
 let year;
 let question;
 let prevAns = "A";
@@ -353,6 +354,19 @@ let prevCorAns = "A";
 const years = [
   2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2023, 2024,
 ];
+
+answerInputEl.addEventListener("keypress", function (event) {
+  if (event.key == "Enter") {
+    event.preventDefault();
+    submitAnswerInputEl.click();
+  }
+});
+findInputEl.addEventListener("keypress", function (event) {
+  if (event.key == "Enter") {
+    event.preventDefault();
+    submitFindInput.click();
+  }
+});
 
 function showQuestion(ID, year, number) {
   reset();
@@ -365,7 +379,7 @@ function showQuestion(ID, year, number) {
     writeEl.style.display = "none";
   }
 
-  question_imgEl.src = `../questions/${years[year]}-${number}.png`;
+  question_imgEl.src = `./questions/${years[year]}-${number}.png`;
   questionIDEl.textContent = `PRÍKLAD ${ID}`;
   question_yearEl.textContent = `(${number}/${years[year]})`;
 }
@@ -380,7 +394,7 @@ function reset() {
   document.getElementById(prevCorAns).style.backgroundColor = "";
 
   answerInputEl.value = "";
-  answerInputEl.placeholder = "výsledok";
+  answerInputEl.placeholder = "odpoveď";
   answerInputEl.disabled = false;
   answerInputEl.style.color = "black";
 
@@ -394,6 +408,11 @@ function reset() {
   findInputEl.value = "";
 }
 
+function openImageInNewTab() {
+  if (window.innerWidth < 1024) return;
+  window.open(`${window.location.origin}/questions/${year}-${question}.png`);
+}
+
 function chooseQuestion() {
   reset();
 
@@ -405,20 +424,17 @@ function chooseQuestion() {
 
   let curID = years.indexOf(year) * 30 + question;
 
-
   showQuestion(curID, curRandomYear, curRandomQuestion);
 }
 
 function goToQuestion() {
   let val = Number(findInputEl.value);
 
-
-  if (val==="" || val <= 0 || val > 330 || !Number.isInteger(val)) {
+  if (val === "" || val <= 0 || val > 330 || !Number.isInteger(val)) {
     findInputEl.value = "";
     findInputEl.placeholder = "X";
     return;
   }
-  console.log("a");
 
   let nextYear = val / 30;
   if (Number.isInteger(nextYear)) nextYear = Math.floor(nextYear) - 1;
@@ -436,15 +452,7 @@ function checkAnswer(ans = "written") {
   if (ans === "written") {
     // let val = Number(answerInputEl.value.trim());
     let val = answerInputEl.value.trim();
-    if (val.includes("."))
-      val = val.replace(".", ",");
-
-    console.log(
-      corAns,
-      val,
-      answers[years.indexOf(year) * 30 + question - 1],
-      years.indexOf(year) * 30 + question - 1
-    );
+    if (val.includes(".")) val = val.replace(".", ",");
 
     submitAnswerInputEl.disabled = true;
     answerInputEl.disabled = true;
@@ -475,9 +483,9 @@ function isNumberKey(event) {
   if (
     charCode > 31 &&
     (charCode < 48 || charCode > 57) &&
-    charCode != 44 && 
+    charCode != 44 &&
     charCode != 45 &&
-    charCode != 46 
+    charCode != 46
   )
     return false;
   return true;
