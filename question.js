@@ -11,8 +11,10 @@ const answerInputEl = document.getElementById("answerInput");
 const submitAnswerInputEl = document.getElementById("submitAnswerInput");
 const corAnswerEl = document.getElementById("corAnswer");
 // find
+const findInputPCEl = document.getElementById("findInputPC");
 const findInputEl = document.getElementById("findInput");
 const submitFindInput = document.getElementById("submitFindInput");
+
 
 const answers = [
   "-5",
@@ -367,7 +369,7 @@ answerInputEl.addEventListener("keypress", function (event) {
     submitAnswerInputEl.click();
   }
 });
-findInputEl.addEventListener("keypress", function (event) {
+findInputPCEl.addEventListener("keypress", function (event) {
   if (event.key == "Enter") {
     event.preventDefault();
     submitFindInput.click();
@@ -412,6 +414,9 @@ function reset() {
 
   findInputEl.placeholder = "#";
   findInputEl.value = "";
+
+  findInputPCEl.placeholder = "#";
+  findInputPCEl.value ="";
 }
 
 function openImageInNewTab() {
@@ -434,11 +439,14 @@ function chooseQuestion() {
 }
 
 function goToQuestion() {
-  let val = Number(findInputEl.value);
+  let curInputEl = window.innerWidth < 1024 ? findInputEl : findInputPCEl;
+
+  let val = Number(curInputEl.value);
+
 
   if (val === "" || val <= 0 || val > 330 || !Number.isInteger(val)) {
-    findInputEl.value = "";
-    findInputEl.placeholder = "X";
+    curInputEl.value = "";
+    curInputEl.placeholder = "X";
     return;
   }
 
