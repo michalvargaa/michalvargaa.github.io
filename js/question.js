@@ -1,4 +1,4 @@
-window.onload = chooseQuestion;
+// window.onload = chooseQuestion;
 
 // question
 const questionIDEl = document.getElementById("question_id");
