@@ -393,6 +393,7 @@ function showQuestion(ID, year, number) {
 }
 
 function reset() {
+  whiteboard.clear();
   // reset A,B,C,D,E
   for (let n = 65; n <= 69; n++) {
     document.getElementById(String.fromCharCode(n)).disabled = false;
@@ -434,6 +435,7 @@ function chooseQuestion() {
   question = curRandomQuestion;
 
   let curID = years.indexOf(year) * 30 + question;
+  
 
   showQuestion(curID, curRandomYear, curRandomQuestion);
 }
