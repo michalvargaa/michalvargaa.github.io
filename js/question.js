@@ -1,5 +1,3 @@
-// window.onload = chooseQuestion;
-
 // question
 const questionIDEl = document.getElementById("question_id");
 const question_imgEl = document.getElementById("question_img");
@@ -14,6 +12,7 @@ const corAnswerEl = document.getElementById("corAnswer");
 const findInputPCEl = document.getElementById("findInputPC");
 const findInputEl = document.getElementById("findInput");
 const submitFindInput = document.getElementById("submitFindInput");
+
 
 
 const answers = [
